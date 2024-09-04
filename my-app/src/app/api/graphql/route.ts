@@ -14,11 +14,13 @@ var rootValue = {
   }
 }
  
-// Run the GraphQL query '{ hello }' and print out the response
-graphql({
-  schema,
-  source: "{ hello }",
-  rootValue
-}).then((response) => {
-  console.log(response)
-})
+export async function GET() {
+    // Run the GraphQL query '{ hello }' and print out the response
+    const data = await graphql({
+    schema,
+    source: "{ hello }",
+    rootValue
+    })    
+    return Response.json(data)
+     
+}
