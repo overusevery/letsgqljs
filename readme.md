@@ -1,4 +1,4 @@
-# practice graphql server
+# [practice] graphql server
 
 ## feature
  - using gqaphql.js
