@@ -22,5 +22,6 @@ export async function GET() {
     rootValue
     })    
     return Response.json(data)
+    //ToDo:error handling
      
 }
