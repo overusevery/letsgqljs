@@ -1,27 +1,29 @@
-var { graphql, buildSchema } = require("graphql")
- 
-// Construct a schema, using GraphQL schema language
-var schema = buildSchema(`
+import { startServerAndCreateNextHandler } from '@as-integrations/next';
+import { ApolloServer } from '@apollo/server';
+import { gql } from 'graphql-tag';
+import { NextRequest } from 'next/server';
+
+const resolvers = {
+  Query: {
+    hello: () => 'world',
+  },
+};
+
+const typeDefs = gql`
   type Query {
     hello: String
   }
-`)
- 
-// The rootValue provides a resolver function for each API endpoint
-var rootValue = {
-  hello() {
-    return "Hello world!"
-  }
-}
- 
-export async function GET() {
-    // Run the GraphQL query '{ hello }' and print out the response
-    const data = await graphql({
-    schema,
-    source: "{ hello }",
-    rootValue
-    })    
-    return Response.json(data)
-    //ToDo:error handling
-     
-}
+`;
+
+const server = new ApolloServer({
+  resolvers,
+  typeDefs,
+});
+
+// req has the type NextRequest
+const handler = startServerAndCreateNextHandler<NextRequest>(server, {
+  context: async (req: any) => ({ req }),
+});
+
+
+export { handler as GET, handler as POST };

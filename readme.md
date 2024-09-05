@@ -1,5 +1,5 @@
 # [practice] graphql server
 
 ## feature
- - using gqaphql.js
+ - using apollo server
  - api is provided on Next.js
